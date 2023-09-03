@@ -17,27 +17,20 @@ local vscode = require('vscode-neovim')
 ---                        Defaults to `false`.
 local function vscode_map(mode, keys, action, opts)
     -- Allow for multiple actions
-    if type(action) == 'table' then
-        for _, value in ipairs(action) do
-            vim.keymap.set(
-                mode,
-                keys,
-                function()
+    vim.keymap.set(
+        mode,
+        keys,
+        function()
+            if type(action) == 'table' then
+                for _, value in ipairs(action) do
                     vscode.notify(value)
-                end,
-                opts
-            )
-        end
-    else
-        vim.keymap.set(
-            mode,
-            keys,
-            function()
+                end
+            else
                 vscode.notify(action)
-            end,
-            opts
-        )
-    end
+            end
+        end,
+        opts
+    )
 end
 
 vscode_map('n', '<leader>sf', 'editor.action.formatDocument')
