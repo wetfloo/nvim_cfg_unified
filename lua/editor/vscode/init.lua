@@ -4,7 +4,7 @@ local vscode = require('vscode-neovim')
 ---@param mode string|table    Mode short-name, see |nvim_set_keymap()|.
 ---                            Can also be list of modes to create mapping on multiple modes.
 ---@param lhs string           Left-hand side |{lhs}| of the mapping.
----@param rhs string|function  Right-hand side |{rhs}| of the mapping, can be a Lua function.
+---@param rhs string|function|table  Right-hand side |{rhs}| of the mapping, can be a Lua function.
 ---
 ---@param opts table|nil Table of |:map-arguments|.
 ---                      - Same as |nvim_set_keymap()| {opts}, except:
@@ -16,25 +16,29 @@ local vscode = require('vscode-neovim')
 ---                        - remap: (boolean) Make the mapping recursive. Inverses "noremap".
 ---                        Defaults to `false`.
 local function vscode_map(mode, keys, action, opts)
-    vim.keymap.set(
-        mode,
-        keys,
-        function()
-            vscode.notify(action)
-        end,
-        opts
-    )
+    -- Allow for multiple actions
+    if type(action) == 'table' then
+        for _, value in ipairs(action) do
+            vim.keymap.set(
+                mode,
+                keys,
+                function()
+                    vscode.notify(value)
+                end,
+                opts
+            )
+        end
+    else
+        vim.keymap.set(
+            mode,
+            keys,
+            function()
+                vscode.notify(action)
+            end,
+            opts
+        )
+    end
 end
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-
-vim.keymap.set(
-    { 'n', 'v' },
-    '<Space>',
-    '<Nop>',
-    { silent = true }
-)
 
 vscode_map('n', '<leader>sf', 'editor.action.formatDocument')
 vscode_map('x', '<leader>sf', 'editor.action.formatSelection')
@@ -206,3 +210,41 @@ vscode_map(
     'git.openChange'
 )
 
+vscode_map(
+    { 'n', 'x' },
+    '<leader>kp',
+    'git.push'
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>kf',
+    'git.fetch'
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>kF',
+    'git.fetchPrune'
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>ky',
+    {
+        'git.fetch',
+        'git.pull',
+    }
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>kA',
+    'git.commitAllAmend'
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>ka',
+    'git.commitAmend'
+)
