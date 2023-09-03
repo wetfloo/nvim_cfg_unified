@@ -1,3 +1,22 @@
+-- Must happen before plugins are required (otherwise wrong leader will be used)
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Set highlight on search
+
+vim.o.hlsearch = false
+vim.o.incsearch = true
+
+-- Save undo history
+
+vim.o.undofile = true
+
+-- Case insensitive searching UNLESS /C or capital in search
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
 -- 0 is more reachable than ^, is sometimes useful
 
 vim.keymap.set('n', '0', '^')
@@ -24,3 +43,15 @@ vim.keymap.set({ 'n', 'x' }, '<leader>p', '"+p', { desc = '[P]aste from + regist
 -- Paste over the text without losing current unnamed register
 
 vim.keymap.set('x', 'p', '"_dP')
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank({ timeout = 1000 })
+    end,
+    group = highlight_group,
+    pattern = '*',
+})
