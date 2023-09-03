@@ -206,6 +206,12 @@ vscode_map(
 
 vscode_map(
     { 'n', 'x' },
+    '<leader>kK',
+    'git.commitAll'
+)
+
+vscode_map(
+    { 'n', 'x' },
     '<leader>kc',
     'git.openChange'
 )
@@ -247,4 +253,22 @@ vscode_map(
     { 'n', 'x' },
     '<leader>ka',
     'git.commitAmend'
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>kD',
+    'git.cleanAll'
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>kss',
+    'git.stash'
+)
+
+vscode_map(
+    { 'n', 'x' },
+    '<leader>ksp',
+    'git.stashPop'
 )
