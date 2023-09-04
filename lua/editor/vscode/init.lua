@@ -15,18 +15,18 @@ local vscode = require('vscode-neovim')
 ---                        for current buffer.
 ---                        - remap: (boolean) Make the mapping recursive. Inverses "noremap".
 ---                        Defaults to `false`.
-local function vscode_map(mode, keys, action, opts)
+local function vscode_map(mode, lhs, rhs, opts)
     -- Allow for multiple actions
     vim.keymap.set(
         mode,
-        keys,
+        lhs,
         function()
-            if type(action) == 'table' then
-                for _, value in ipairs(action) do
+            if type(rhs) == 'table' then
+                for _, value in ipairs(rhs) do
                     vscode.notify(value)
                 end
             else
-                vscode.notify(action)
+                vscode.notify(rhs)
             end
         end,
         opts
