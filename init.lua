@@ -1,5 +1,12 @@
 -- Load initials basic editor stuff that doesn't require any plugins to run
-require('editor')
+
+require('common.editor')
+
+if vim.g.vscode then
+  require('vscode.editor')
+else
+  require('nvim.editor')
+end
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
