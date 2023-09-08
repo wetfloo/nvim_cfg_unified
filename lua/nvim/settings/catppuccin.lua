@@ -1,5 +1,5 @@
 require('catppuccin').setup({
-    transparent_background = false,
+    transparent_background = true,
     flavour = 'mocha',
     integrations = {
      -- cmp = true,
