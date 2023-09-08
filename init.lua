@@ -22,12 +22,3 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins')
-
--- Plugin related settings load
-require('common.settings')
-
-if vim.g.vscode then
-    require('vscode.settings')
-else
-    require('nvim.settings')
-end
