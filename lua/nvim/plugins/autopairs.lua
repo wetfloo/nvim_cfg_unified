@@ -1,7 +1,8 @@
 return {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
-    config = function()
-        require('nvim-autopairs').setup {}
-    end,
+
+    -- This empty table is necessary, otherwise it doesn't run.
+
+    opts = {},
 }

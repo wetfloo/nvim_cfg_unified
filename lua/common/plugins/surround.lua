@@ -5,7 +5,8 @@ return {
         'BufReadPost',
         'BufNewFile',
     },
-    config = function()
-        require('nvim-surround').setup {}
-    end,
+
+    -- This empty table is necessary, otherwise it doesn't run.
+
+    opts = {},
 }
