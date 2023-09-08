@@ -3,9 +3,9 @@
 require('common.editor')
 
 if vim.g.vscode then
-  require('vscode.editor')
+    require('vscode.editor')
 else
-  require('nvim.editor')
+    require('nvim.editor')
 end
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -24,8 +24,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup('plugins')
 
 -- Plugin related settings load
+require('common.settings')
+
 if vim.g.vscode then
-  require('vscode.settings')
+    require('vscode.settings')
 else
-  require('nvim.settings')
+    require('nvim.settings')
 end
