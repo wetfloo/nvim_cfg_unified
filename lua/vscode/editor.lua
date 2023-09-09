@@ -49,6 +49,7 @@ vscode_map({ 'n', 'x' }, '<C-l>', 'workbench.action.focusRightGroup', { desc = '
 vscode_map({ 'n', 'x' }, '<A-l>', 'workbench.action.nextEditor')
 vscode_map({ 'n', 'x' }, '<A-h>', 'workbench.action.previousEditor')
 vscode_map({ 'n', 'x' }, '<A-d>', 'workbench.action.closeActiveEditor')
+vscode_map({ 'n', 'x' }, '<leader>\'', 'notifications.clearAll')
 vscode_map(
     { 'n', 'x' },
     '<leader>\\',
