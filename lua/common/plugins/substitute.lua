@@ -1,18 +1,14 @@
 return {
     "gbprod/substitute.nvim",
-
     keys = {
-        'X',
         'cx',
-        'cX',
     },
-
-    -- This empty table is necessary, otherwise it doesn't run.
-
-    opts = {},
-
+    event = { 
+        'BufReadPost',
+        'BufNewFile',
+    },
     config = function(opts)
-        require('substitute').setup(opts)
+        require('substitute').setup({})
         local exchange = require('substitute.exchange')
 
         vim.keymap.set("n", "cx", exchange.operator, { noremap = true })
